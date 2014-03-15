@@ -10,16 +10,21 @@ package cazeriapatos;
  */
 public class Duck extends Thread implements FieldItem {
 
-    private String symbol;
+   
     private Position pos;
     private boolean vivo;
     private char type;
 
-    public Duck(String symbol, Position pos) {
-        this.symbol = symbol;
-        this.pos = pos;
+    public Duck(HuntField campo) {
+       
         vivo = true;
         type = 'D';
+        pos = new Position (((int)(Math.random()*(campo.getYLength()))),
+                ((int)(Math.random()*(campo.getXLength()))));
+        while (!campo.setItem(this, pos)){
+             pos = new Position (((int)Math.random()*campo.getYLength()),
+                ((int)Math.random()*campo.getXLength()));
+        }  
 
     }
 

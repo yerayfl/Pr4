@@ -6,8 +6,11 @@ public class HuntField {
     private int columna;
     private FieldItem campo[][];
 
-    public HuntField(int fila, int columna) {
-        campo = new FieldItem[fila][columna];
+    public HuntField(int fil, int column) {
+        
+        fila=fil;
+        columna=column;
+        campo = new FieldItem [fila][columna];
     }
 
     public int getYLength() {
@@ -18,15 +21,17 @@ public class HuntField {
         return columna;
     }
 
-    synchronized public boolean setItem(FieldItem elem) {
-        if ((campo[elem.getPos().getX()][elem.getPos().getY()]) == null) {
+    synchronized public boolean setItem(FieldItem elem, Position pos) {
+        if ((pos.getY() < columna) || (pos.getX() < fila) ||
+                (campo[pos.getX()][pos.getY()]) == null) {
             for (int i = 0; i < fila; i++) {
                 for (int z = 0; z < columna; z++) {
-                    if ((campo[i][z]) == elem) {
+                    if (campo[i][z] == elem) {
                         return false;
                     }
                 }
             }
+            campo[pos.getX()][pos.getY()]=elem;
             return true;
         }
         return false;
@@ -81,11 +86,24 @@ public class HuntField {
         int contador=0;
         for (int i = 0; i < fila; i++) {
                 for (int z = 0; z < columna; z++) {
-                    if ((campo[i][z]).getType() == type) {
+                    if (campo[i][z]!= null && campo[i][z].getType() == type) {
                         contador++;
                     }
                 }
             }
         return contador;
+    }
+    @Override
+    synchronized public String toString(){
+        String devolver=""; 
+         for (int i = 0; i < fila; i++) {
+                for (int z = 0; z < columna; z++) {
+                    if(campo[i][z]!=null)
+                    devolver+= (campo[i][z].getType());
+                    devolver+=" ";
+                }
+                devolver+='\n';
+            }
+         return devolver;
     }
 }

@@ -10,14 +10,17 @@ package cazeriapatos;
  */
 public class Tree implements FieldItem {
 
-    private String id;
     private Position pos;
     private char type;
 
-    public Tree(String id, Position pos) {
-        this.id = id;
-        this.pos = pos;
+    public Tree(HuntField campo) {
         type = 'T';
+        pos = new Position (((int)(Math.random()*(campo.getYLength()))),
+                ((int)(Math.random()*(campo.getXLength()))));
+        while (!campo.setItem(this, pos)){
+             pos = new Position (((int)Math.random()*campo.getYLength()),
+                ((int)Math.random()*campo.getXLength()));
+        }  
     }
 
     @Override

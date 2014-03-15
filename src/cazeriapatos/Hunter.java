@@ -10,16 +10,20 @@ package cazeriapatos;
  */
 public class Hunter extends Thread implements FieldItem {
 
-    private int symbol;
+
     private Position pos;
     private boolean vivo;
     private char type;
 
-    public Hunter(int id) {
-        symbol = id;
-        pos = null;
-        vivo = true;
+    public Hunter(HuntField campo) {
+       vivo=true;
         type = 'H';
+        pos = new Position (((int)(Math.random()*(campo.getYLength()))),
+                ((int)(Math.random()*(campo.getXLength()))));
+        while (!campo.setItem(this, pos)){
+             pos = new Position (((int)Math.random()*campo.getYLength()),
+                ((int)Math.random()*campo.getXLength()));
+        }  
     }
 
     @Override
