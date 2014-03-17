@@ -25,10 +25,10 @@ public class Cazeriapatos {
             new Tree(f);
         }
         for (int i = 0; i < numberOfDucks; i++) {
-            new Duck(f);//.start();
+            new Duck(f).start();
         }
         for (int i = 0; i < numberOfHunters; i++) {
-            new Hunter(f);//.start();
+            new Hunter(f).start();
         }
        while (f.getNumberOfItems('D') > 0) {
             Thread.sleep(200);
