@@ -15,12 +15,12 @@ public class Tree implements FieldItem {
 
     public Tree(HuntField campo) {
         type = 'T';
-        pos = new Position (((int)(Math.random()*(campo.getYLength()))),
-                ((int)(Math.random()*(campo.getXLength()))));
-        while (false==campo.setItem(this, pos)){
-             pos = new Position (((int)Math.random()*campo.getYLength()),
-                ((int)Math.random()*campo.getXLength()));
-        }  
+        pos = new Position(((int) (Math.random() * (campo.getYLength()))),
+                ((int) (Math.random() * (campo.getXLength()))));
+        while (false == campo.setItem(this, pos)) {
+            pos = new Position(((int) Math.random() * campo.getYLength()),
+                    ((int) Math.random() * campo.getXLength()));
+        }
     }
 
     @Override
@@ -30,11 +30,11 @@ public class Tree implements FieldItem {
 
     @Override
     public char getType() {
-       return type;
+        return type;
     }
 
     @Override
-     public void setPos(Position position) {
+    public void setPos(Position position) {
         pos = position;
 
     }

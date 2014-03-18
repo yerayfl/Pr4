@@ -1,5 +1,8 @@
 package cazeriapatos;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class HuntField {
 
     private int fila;
@@ -22,7 +25,7 @@ public class HuntField {
     }
 
     synchronized public boolean setItem(FieldItem elem, Position pos) {
-        if ((pos.getX()< fila) && (pos.getY() < columna)&&(pos.getX()>=0)&&(pos.getY()>=0)&& (campo[pos.getX()][pos.getY()]) == null) {
+        if ((pos.getX() < fila) && (pos.getY() < columna) && (pos.getX() >= 0) && (pos.getY() >= 0) && (campo[pos.getX()][pos.getY()]) == null) {
             for (int i = 0; i < fila; i++) {
                 for (int z = 0; z < columna; z++) {
                     if (campo[i][z] == elem) {
@@ -38,10 +41,12 @@ public class HuntField {
 
     synchronized public boolean shot(Position pos) {
 
-        if ((pos.getY() >= columna) || (pos.getX() >= fila) || (campo[pos.getX()][pos.getY()]) == null) {
+        if ((pos.getY() >= columna) || (pos.getX() >= fila) || (pos.getX() < 0)
+                || (pos.getY() < 0) || (campo[pos.getX()][pos.getY()]) == null || (campo[pos.getX()][pos.getY()].getType()) == 'T' ) {
             return false;
         }
         if ((campo[pos.getX()][pos.getY()]).fired(pos)) {
+            
             this.ponernull(pos);
             return true;
         }
@@ -73,8 +78,15 @@ public class HuntField {
                 || item != campo[actual.getX()][actual.getY()]) {
             return false;
         }
-        if ((nueva.getY() >= columna) ||(nueva.getY()<0)||(nueva.getX()<0)|| (nueva.getX() >= fila) || (campo[nueva.getX()][nueva.getY()]) != null) {
+        if ((nueva.getY() >= columna) || (nueva.getY() < 0) || (nueva.getX() < 0) || (nueva.getX() >= fila) || ((campo[nueva.getX()][nueva.getY()]) != null)) {
             return false;
+        }
+        if ((campo[nueva.getX()][nueva.getY()]) != null) {
+            try {
+                wait(5);
+            } catch (InterruptedException ex) {
+
+            }
         }
         campo[nueva.getX()][nueva.getY()] = item;
         campo[actual.getX()][actual.getY()] = null;
