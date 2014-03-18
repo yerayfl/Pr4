@@ -17,7 +17,7 @@ public class Tree implements FieldItem {
         type = 'T';
         pos = new Position (((int)(Math.random()*(campo.getYLength()))),
                 ((int)(Math.random()*(campo.getXLength()))));
-        while (!campo.setItem(this, pos)){
+        while (false==campo.setItem(this, pos)){
              pos = new Position (((int)Math.random()*campo.getYLength()),
                 ((int)Math.random()*campo.getXLength()));
         }  

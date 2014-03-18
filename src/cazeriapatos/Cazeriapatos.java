@@ -17,10 +17,10 @@ public class Cazeriapatos {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        final int numberOfTrees = 20;
-        final int numberOfDucks = 20;
-        final int numberOfHunters = 30;
-        HuntField f = new HuntField(21, 70);
+        final int numberOfTrees = 10;
+        final int numberOfDucks = 10;
+        final int numberOfHunters = 10;
+        HuntField f = new HuntField(26,50);
         for (int i = 0; i < numberOfTrees; i++) {
             new Tree(f);
         }
@@ -31,7 +31,7 @@ public class Cazeriapatos {
             new Hunter(f).start();
         }
        while (f.getNumberOfItems('D') > 0) {
-            Thread.sleep(200);
+           Thread.sleep(200);
             printField(f);
         }
         printField(f);

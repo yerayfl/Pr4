@@ -14,13 +14,15 @@ public class Hunter extends Thread implements FieldItem {
     private Position pos;
     private boolean vivo;
     private char type;
+    private HuntField campo;
 
     public Hunter(HuntField campo) {
+       this.campo=campo;
        vivo=true;
         type = 'H';
         pos = new Position (((int)(Math.random()*(campo.getYLength()))),
                 ((int)(Math.random()*(campo.getXLength()))));
-        while (!campo.setItem(this, pos)){
+        while (false==campo.setItem(this, pos)){
              pos = new Position (((int)Math.random()*campo.getYLength()),
                 ((int)Math.random()*campo.getXLength()));
         }  

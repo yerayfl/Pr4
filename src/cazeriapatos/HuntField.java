@@ -7,10 +7,10 @@ public class HuntField {
     private FieldItem campo[][];
 
     public HuntField(int fil, int column) {
-        
-        fila=fil;
-        columna=column;
-        campo = new FieldItem [fila][columna];
+
+        fila = fil;
+        columna = column;
+        campo = new FieldItem[fila][columna];
     }
 
     public int getYLength() {
@@ -22,8 +22,7 @@ public class HuntField {
     }
 
     synchronized public boolean setItem(FieldItem elem, Position pos) {
-        if ((pos.getY() < columna) || (pos.getX() < fila) ||
-                (campo[pos.getX()][pos.getY()]) == null) {
+        if ((pos.getX()< fila) && (pos.getY() < columna)&&(pos.getX()>=0)&&(pos.getY()>=0)&& (campo[pos.getX()][pos.getY()]) == null) {
             for (int i = 0; i < fila; i++) {
                 for (int z = 0; z < columna; z++) {
                     if (campo[i][z] == elem) {
@@ -31,7 +30,7 @@ public class HuntField {
                     }
                 }
             }
-            campo[pos.getX()][pos.getY()]=elem;
+            campo[pos.getX()][pos.getY()] = elem;
             return true;
         }
         return false;
@@ -70,11 +69,11 @@ public class HuntField {
     }
 
     synchronized public boolean moveItem(FieldItem item, Position actual, Position nueva) {
-        if ((actual.getY() >= columna) || (actual.getX() >= fila) || (campo[actual.getX()][actual.getY()]) != null
+        if ((actual.getY() >= columna) || (actual.getX() >= fila) || (campo[actual.getX()][actual.getY()]) == null
                 || item != campo[actual.getX()][actual.getY()]) {
             return false;
         }
-        if ((nueva.getY() >= columna) || (nueva.getX() >= fila) || (campo[nueva.getX()][nueva.getY()]) != null) {
+        if ((nueva.getY() >= columna) ||(nueva.getY()<0)||(nueva.getX()<0)|| (nueva.getX() >= fila) || (campo[nueva.getX()][nueva.getY()]) != null) {
             return false;
         }
         campo[nueva.getX()][nueva.getY()] = item;
@@ -82,28 +81,31 @@ public class HuntField {
         item.setPos(nueva);
         return true;
     }
-    synchronized public int getNumberOfItems(char type){
-        int contador=0;
+
+    synchronized public int getNumberOfItems(char type) {
+        int contador = 0;
         for (int i = 0; i < fila; i++) {
-                for (int z = 0; z < columna; z++) {
-                    if (campo[i][z]!= null && campo[i][z].getType() == type) {
-                        contador++;
-                    }
+            for (int z = 0; z < columna; z++) {
+                if (campo[i][z] != null && campo[i][z].getType() == type) {
+                    contador++;
                 }
             }
+        }
         return contador;
     }
+
     @Override
-    synchronized public String toString(){
-        String devolver=""; 
-         for (int i = 0; i < fila; i++) {
-                for (int z = 0; z < columna; z++) {
-                    if(campo[i][z]!=null)
-                    devolver+= (campo[i][z].getType());
-                    devolver+=" ";
+    synchronized public String toString() {
+        String devolver = "";
+        for (int i = 0; i < fila; i++) {
+            for (int z = 0; z < columna; z++) {
+                if (campo[i][z] != null) {
+                    devolver += (campo[i][z].getType());
                 }
-                devolver+='\n';
+                devolver += " ";
             }
-         return devolver;
+            devolver += '\n';
+        }
+        return devolver;
     }
 }
