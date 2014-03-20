@@ -13,6 +13,8 @@ public class Cazeriapatos {
     public static void printField(HuntField field) {
         System.out.print("Hunters " + field.getNumberOfItems('H')
                 + " Ducks " + field.getNumberOfItems('D') + "\n");
+        System.out.print("\033[2J");
+        System.out.print("\033[H");
         System.out.print(field);
     }
 
@@ -20,7 +22,7 @@ public class Cazeriapatos {
         final int numberOfTrees = 10;
         final int numberOfDucks = 10;
         final int numberOfHunters = 10;
-        HuntField f = new HuntField(10, 20);
+        HuntField f = new HuntField(15, 20);
         for (int i = 0; i < numberOfTrees; i++) {
             new Tree(f);
         }

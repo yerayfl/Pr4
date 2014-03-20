@@ -24,7 +24,7 @@ public class Duck extends Thread implements FieldItem {
         type = 'D';
         pos = new Position(((int) (Math.random() * (campo.getYLength()))),
                 ((int) (Math.random() * (campo.getXLength()))));
-        while (false == campo.setItem(this, pos)) {
+        while (!campo.setItem(this, pos)) {
             pos = new Position(((int) Math.random() * campo.getYLength()),
                     ((int) Math.random() * campo.getXLength()));
         }
@@ -35,7 +35,7 @@ public class Duck extends Thread implements FieldItem {
     public void run() {
         while (vivo) {
             try {
-                Thread.sleep(200);
+               sleep((long) (Math.random() * 300));
             } catch (InterruptedException ex) {
 
             }
@@ -82,7 +82,8 @@ public class Duck extends Thread implements FieldItem {
     public Position getPos() {
         return pos;
     }
-    public void matar(){
-        vivo=false;
+
+    public void matar() {
+        vivo = false;
     }
 }

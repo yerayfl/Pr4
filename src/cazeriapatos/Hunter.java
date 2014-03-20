@@ -20,9 +20,10 @@ public class Hunter extends Thread implements FieldItem {
         this.campo = campo;
         vivo = true;
         type = 'H';
+        aciertos=0;
         pos = new Position(((int) (Math.random() * (campo.getYLength()))),
                 ((int) (Math.random() * (campo.getXLength()))));
-        while (false == campo.setItem(this, pos)) {
+        while (!campo.setItem(this, pos)) {
             pos = new Position(((int) Math.random() * campo.getYLength()),
                     ((int) Math.random() * campo.getXLength()));
         }
@@ -31,38 +32,47 @@ public class Hunter extends Thread implements FieldItem {
     @Override
     public void run() {
         Position paux;
+        int rmd = (int) (Math.random() * 4);
         while (vivo) {
             try {
-                sleep(200);
+                sleep((long) (Math.random() * 100));
             } catch (InterruptedException ex) {
 
             }
-            int rmd = (int) (Math.random() * 4);
-            if (rmd == 0) {
-                paux = new Position(pos.getX(), pos.getY() + 1);
-                if (campo.shot(paux)) {
-                    campo.moveItem(this, pos, paux);
-                }
-            }
-            if (rmd == 1) {
-                paux = new Position(pos.getX(), pos.getY() - 1);
-                if (campo.shot(paux)) {
-                    campo.moveItem(this, pos, paux);
-                }
-            }
-            if (rmd == 2) {
-                paux = new Position(pos.getX() + 1, pos.getY());
-                if (campo.shot(paux)) {
-                    campo.moveItem(this, pos, paux);
-                }
-            }
-            if (rmd == 3) {
-                paux = new Position(pos.getX() - 1, pos.getY());
-                if (campo.shot(paux)) {
-                    campo.moveItem(this, pos, paux);
-                }
-            }
 
+            switch (rmd % 4) {
+                case 0:
+                    paux = new Position(pos.getX() - 1, pos.getY());
+                    if (campo.shot(paux)) {
+                        campo.moveItem(this, pos, paux);
+                        aciertos++;
+                    }
+                    break;
+
+                case 1:
+                    paux = new Position(pos.getX(), pos.getY() + 1);
+                    if (campo.shot(paux)) {
+                        campo.moveItem(this, pos, paux);
+                        aciertos++;
+                    }
+                    break;
+                case 2:
+                    paux = new Position(pos.getX() + 1, pos.getY());
+                    if (campo.shot(paux)) {
+                        campo.moveItem(this, pos, paux);
+                        aciertos++;
+                    }
+                    break;
+                case 3:
+                    paux = new Position(pos.getX(), pos.getY() - 1);
+                    if (campo.shot(paux)) {
+                        campo.moveItem(this, pos, paux);
+                        aciertos++;
+                    }
+                    break;
+
+            }
+            rmd++;
         }
     }
 
